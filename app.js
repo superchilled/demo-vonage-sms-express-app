@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/sms', (req, res) => {
-  res.render('sms');
+  res.render('sms', {statusMessage: undefined});
 });
 
 app.post('/sms', (req, res) => {
@@ -28,18 +28,23 @@ app.post('/sms', (req, res) => {
   });
   let toNumber = req.body.number;
   let message = req.body.message;
+  let statusMessage = {};
+
   vonage.message.sendSms('Vonage', toNumber, message, (err, responseData) => {
     if (err) {
         console.log(err);
     } else {
         if(responseData.messages[0]['status'] === "0") {
-          console.log("Message sent successfully.");
+          statusMessage.text = "Message sent successfully.";
+          statusMessage.class = "flash-success";
+          res.render('sms', {statusMessage: statusMessage});
         } else {
-          console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+          statusMessage.text = `Message failed with error: ${responseData.messages[0]['error-text']}`;
+          statusMessage.class = "flash-error";
+          res.render('sms', {statusMessage: statusMessage});
         }
     }
   });
-  res.render('sms');
 });
 
 

@@ -18,6 +18,12 @@
         <textarea name="message" rows="8" cols="80"></textarea>
         <input type="submit" value="Send Message">
       </form>
+
+      <% if (statusMessage) { %>
+          <div class="flash-notice <%= statusMessage.class %>">
+            <%= statusMessage.text %>
+          </div>
+      <% } %>
     </article>
   </body>
 </html>
