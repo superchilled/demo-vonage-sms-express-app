@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const Vonage = require('@vonage/server-sdk');
 require('dotenv').config();
 
-const apiKey = process.env.API_KEY;
-const apiSecret = process.env.API_SECRET;
+const apiKey = process.env.VONAGE_API_KEY;
+const apiSecret = process.env.VONAGE_API_SECRET;
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
